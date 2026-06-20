@@ -1,0 +1,35 @@
+import { useEffect, useState } from "react";
+
+export default function CompanyLogo({ src, company }: { src: string; company: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+    const img = new Image();
+    img.onload = () => setLoaded(true);
+    img.onerror = () => setLoaded(false);
+    img.src = src;
+  }, [src]);
+
+  if (loaded) {
+    return (
+      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded border border-slate-200 bg-white p-2">
+        <img src={src} alt={`${company} logo`} className="h-full w-full object-contain" />
+      </span>
+    );
+  }
+
+  const initials = company
+    .replace(/\(.*\)/, "")
+    .trim()
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("");
+
+  return (
+    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded bg-accent text-sm font-semibold text-white">
+      {initials}
+    </span>
+  );
+}
