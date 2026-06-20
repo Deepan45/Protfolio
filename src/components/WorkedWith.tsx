@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { workedWith } from "../data";
+import { asset } from "../lib/asset";
 
 function LogoItem({ name, logo }: { name: string; logo: string }) {
   const [loaded, setLoaded] = useState(false);
+  const resolvedLogo = asset(logo);
 
   useEffect(() => {
     const img = new Image();
     img.onload = () => setLoaded(true);
     img.onerror = () => setLoaded(false);
-    img.src = logo;
-  }, [logo]);
+    img.src = resolvedLogo;
+  }, [resolvedLogo]);
 
   if (loaded) {
     return (
       <div className="flex h-20 items-center justify-center rounded border border-slate-200 bg-white px-6 sm:h-24">
-        <img src={logo} alt={name} className="h-12 w-auto object-contain sm:h-14" />
+        <img src={resolvedLogo} alt={name} className="h-12 w-auto object-contain sm:h-14" />
       </div>
     );
   }

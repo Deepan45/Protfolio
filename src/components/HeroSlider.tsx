@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { heroImages, profile } from "../data";
+import { asset } from "../lib/asset";
 
-const candidates = ["/profile.jpeg", ...heroImages];
+const candidates = ["/profile.jpeg", ...heroImages].map(asset);
 const SLIDE_DURATION = 4500;
 
 export default function HeroSlider({ initials }: { initials: string }) {

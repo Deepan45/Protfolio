@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Rocket } from "lucide-react";
+import { asset } from "../lib/asset";
 
 const palettes = [
   "from-indigo-500 via-violet-500 to-fuchsia-500",
@@ -21,25 +22,27 @@ export default function ProjectImage({
 }) {
   const [loaded, setLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const resolvedSrc = asset(src);
+  const resolvedVideo = video ? asset(video) : undefined;
 
   useEffect(() => {
     setLoaded(false);
     const img = new Image();
     img.onload = () => setLoaded(true);
     img.onerror = () => setLoaded(false);
-    img.src = src;
-  }, [src]);
+    img.src = resolvedSrc;
+  }, [resolvedSrc]);
 
   useEffect(() => {
     setVideoFailed(false);
-  }, [video]);
+  }, [resolvedVideo]);
 
-  if (video && !videoFailed) {
+  if (resolvedVideo && !videoFailed) {
     return (
       <div className="aspect-video w-full overflow-hidden bg-slate-100">
         <video
-          src={video}
-          poster={src}
+          src={resolvedVideo}
+          poster={resolvedSrc}
           autoPlay
           loop
           muted
@@ -54,7 +57,7 @@ export default function ProjectImage({
   if (loaded) {
     return (
       <div className="aspect-video w-full overflow-hidden bg-slate-100">
-        <img src={src} alt={`${name} screenshot`} className="h-full w-full object-cover" />
+        <img src={resolvedSrc} alt={`${name} screenshot`} className="h-full w-full object-cover" />
       </div>
     );
   }

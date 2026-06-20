@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
+import { asset } from "../lib/asset";
 
 export default function CompanyLogo({ src, company }: { src: string; company: string }) {
   const [loaded, setLoaded] = useState(false);
+  const resolvedSrc = asset(src);
 
   useEffect(() => {
     setLoaded(false);
     const img = new Image();
     img.onload = () => setLoaded(true);
     img.onerror = () => setLoaded(false);
-    img.src = src;
-  }, [src]);
+    img.src = resolvedSrc;
+  }, [resolvedSrc]);
 
   if (loaded) {
     return (
       <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded border border-slate-200 bg-white p-2">
-        <img src={src} alt={`${company} logo`} className="h-full w-full object-contain" />
+        <img src={resolvedSrc} alt={`${company} logo`} className="h-full w-full object-contain" />
       </span>
     );
   }
