@@ -210,7 +210,7 @@ export const projects: Project[] = [
     name: "LMS Platform",
     tech: "Angular, .NET, PostgreSQL",
     description: "Learning Management System for course delivery, assessments, and student tracking.",
-    image: "/projects/lms-platform.jpg",
+    image: "/projects/lms.jpeg",
   },
   {
     name: "Samaya",
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     name: "E-Commerce Platform",
     tech: "Angular, .NET",
     description: "Online shopping, inventory, payment, and order management system.",
-    image: "/projects/e-commerce-platform.jpg",
+    image: "/projects/ecom.jpeg",
   },
   {
     name: "IHMS",
