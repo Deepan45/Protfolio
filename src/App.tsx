@@ -10,10 +10,11 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import BackToTop from "./components/BackToTop";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <ScrollProgress />
       <Nav />
       <main>
@@ -28,6 +29,7 @@ function App() {
       </main>
       <Footer />
       <BackToTop />
+      <Chatbot />
     </div>
   );
 }

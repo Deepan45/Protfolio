@@ -65,9 +65,7 @@ export default function ProjectImage({
   const palette = palettes[index % palettes.length];
 
   return (
-    <div
-      className={`flex aspect-video w-full items-center justify-center bg-gradient-to-br ${palette}`}
-    >
+    <div className={`flex aspect-video w-full items-center justify-center bg-gradient-to-br ${palette}`}>
       <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
         <Rocket size={24} className="text-white" />
       </span>

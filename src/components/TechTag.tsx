@@ -17,7 +17,7 @@ export default function TechTag({ label, className }: { label: string; className
     <span
       className={
         className ??
-        "inline-flex items-center gap-1.5 rounded bg-slate-100 px-2.5 py-1 text-xs text-slate-600 ring-1 ring-slate-200"
+        "inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600"
       }
     >
       {slug && iconOk && (

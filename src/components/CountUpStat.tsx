@@ -28,7 +28,7 @@ export default function CountUpStat({ value, className }: { value: string; class
   }, [inView, target]);
 
   return (
-    <p ref={ref} className={`text-2xl font-bold sm:text-3xl ${className ?? "text-slate-900"}`}>
+    <p ref={ref} className={`text-3xl font-bold sm:text-4xl ${className ?? "text-slate-900"}`}>
       {target === null ? value : display}
       {suffix}
     </p>

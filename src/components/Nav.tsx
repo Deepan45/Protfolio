@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 const links = [
   { href: "#about", label: "About" },
@@ -13,6 +14,13 @@ const links = [
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   useEffect(() => {
     const sections = links
@@ -33,78 +41,121 @@ export default function Nav() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <nav className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-3.5 sm:px-10 lg:px-16 xl:px-20">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded bg-accent text-xs font-semibold text-white">
-            DV
-          </span>
-          <span className="text-sm font-semibold tracking-wide text-slate-900 uppercase">
-            Deepan Vijayasarathi
-          </span>
-        </a>
+    <>
+      <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-lg">
+        <nav className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-3.5 sm:px-10 lg:px-16 xl:px-20">
+          {/* Logo */}
+          <a href="#top" className="flex items-center gap-2.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white shadow-sm shadow-indigo-600/30">
+              DV
+            </span>
+            <span className="text-sm font-semibold text-slate-900">Deepan Vijayasarathi</span>
+          </a>
 
-        <ul className="hidden gap-7 text-sm text-slate-600 lg:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={`relative pb-1 transition-colors hover:text-slate-900 ${
-                  active === link.href ? "text-slate-900" : ""
-                }`}
-              >
-                {link.label}
-                {active === link.href && (
-                  <span className="absolute right-0 -bottom-[15px] left-0 h-0.5 bg-accent" />
-                )}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href="#contact"
-          className="hidden rounded border border-accent bg-accent px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-light lg:inline-block"
-        >
-          Hire Me
-        </a>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="text-slate-700 lg:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </nav>
-
-      {open && (
-        <div className="border-t border-slate-200 bg-white px-6 py-4 lg:hidden">
-          <ul className="flex flex-col gap-4 text-sm text-slate-700">
+          {/* Desktop nav links */}
+          <ul className="hidden items-center gap-1 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={active === link.href ? "font-medium text-accent-light" : ""}
+                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${
+                    active === link.href
+                      ? "bg-indigo-50 text-indigo-600"
+                      : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
                 >
                   {link.label}
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="inline-block rounded border border-accent bg-accent px-5 py-2 font-medium text-white"
-              >
-                Hire Me
-              </a>
-            </li>
           </ul>
-        </div>
-      )}
-    </header>
+
+          <div className="flex items-center gap-2">
+            <a
+              href="#contact"
+              className="hidden rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition-all hover:bg-indigo-700 lg:inline-block"
+            >
+              Hire Me
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="rounded-md p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 lg:hidden"
+              aria-label="Open menu"
+            >
+              <Menu size={22} />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Full-screen mobile overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-[60] flex flex-col bg-white px-6 pb-10 pt-5 lg:hidden"
+          >
+            {/* Overlay top bar */}
+            <div className="flex items-center justify-between">
+              <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">
+                  DV
+                </span>
+                <span className="text-sm font-semibold text-slate-900">Deepan Vijayasarathi</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="rounded-md p-1.5 text-slate-500 hover:bg-slate-100"
+                aria-label="Close menu"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* Nav links */}
+            <nav className="mt-8 flex flex-1 flex-col gap-1">
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04, duration: 0.22 }}
+                  onClick={() => setOpen(false)}
+                  className={`group flex items-center justify-between rounded-xl px-4 py-4 text-lg font-semibold transition-colors ${
+                    active === link.href
+                      ? "bg-indigo-50 text-indigo-600"
+                      : "text-slate-800 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
+                >
+                  {link.label}
+                  <ArrowRight
+                    size={16}
+                    className="text-slate-300 transition-colors group-hover:text-slate-400"
+                  />
+                </motion.a>
+              ))}
+            </nav>
+
+            {/* CTA at bottom */}
+            <motion.a
+              href="#contact"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.26, duration: 0.24 }}
+              onClick={() => setOpen(false)}
+              className="block w-full rounded-xl bg-indigo-600 py-4 text-center text-base font-semibold text-white shadow-md shadow-indigo-600/25"
+            >
+              Hire Me
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

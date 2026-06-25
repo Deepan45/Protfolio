@@ -41,14 +41,14 @@ export default function HeroSlider({ initials }: { initials: string }) {
 
   if (images.length === 0) {
     return (
-      <div className="flex aspect-[4/5] w-full max-w-xs items-center justify-center rounded-lg border border-slate-200 bg-accent shadow-xl sm:max-w-sm">
+      <div className="flex aspect-[4/5] w-full max-w-xs items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-xl shadow-indigo-500/20 sm:max-w-sm">
         <span className="text-6xl font-bold text-white/90">{initials}</span>
       </div>
     );
   }
 
   return (
-    <div className="group relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-xl sm:max-w-sm">
+    <div className="group relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-xl shadow-slate-300/40 sm:max-w-sm">
       <AnimatePresence mode="sync">
         <motion.img
           key={images[index]}
@@ -65,11 +65,11 @@ export default function HeroSlider({ initials }: { initials: string }) {
         />
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-accent/90 via-accent/20 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-indigo-900/80 via-indigo-900/20 to-transparent" />
 
-      <div className="absolute inset-x-0 bottom-0 p-4">
+      <div className="absolute inset-x-0 bottom-0 p-5">
         <p className="text-sm font-semibold text-white">{profile.name}</p>
-        <p className="text-xs text-white/80">{profile.location}</p>
+        <p className="text-xs text-white/70">{profile.location}</p>
       </div>
 
       {images.length > 1 && (
@@ -78,7 +78,7 @@ export default function HeroSlider({ initials }: { initials: string }) {
             type="button"
             aria-label="Previous photo"
             onClick={() => go(index - 1)}
-            className="absolute top-1/2 left-2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-accent opacity-0 shadow transition-opacity group-hover:opacity-100"
+            className="absolute top-1/2 left-2.5 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow transition-opacity group-hover:opacity-100"
           >
             <ChevronLeft size={16} />
           </button>
@@ -86,11 +86,11 @@ export default function HeroSlider({ initials }: { initials: string }) {
             type="button"
             aria-label="Next photo"
             onClick={() => go(index + 1)}
-            className="absolute top-1/2 right-2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-accent opacity-0 shadow transition-opacity group-hover:opacity-100"
+            className="absolute top-1/2 right-2.5 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow transition-opacity group-hover:opacity-100"
           >
             <ChevronRight size={16} />
           </button>
-          <div className="absolute top-3 right-3 flex gap-1.5">
+          <div className="absolute top-3.5 right-3.5 flex gap-1.5">
             {images.map((src, i) => (
               <button
                 key={src}

@@ -15,7 +15,7 @@ export default function CompanyLogo({ src, company }: { src: string; company: st
 
   if (loaded) {
     return (
-      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded border border-slate-200 bg-white p-2">
+      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
         <img src={resolvedSrc} alt={`${company} logo`} className="h-full w-full object-contain" />
       </span>
     );
@@ -30,7 +30,7 @@ export default function CompanyLogo({ src, company }: { src: string; company: st
     .join("");
 
   return (
-    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded bg-accent text-sm font-semibold text-white">
+    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-sm font-bold text-white shadow-md shadow-indigo-500/20">
       {initials}
     </span>
   );
